@@ -8,8 +8,11 @@ class CommandParserException(Exception):
 def parse(line):
     line = line.strip()
 
-    m = re.match("^([acrg])([ ]+.*)?", line)
-    command, rest = m.groups()
+    try:
+        m = re.match("^([acrg])([ ]+.*)?", line)
+        command, rest = m.groups()
+    except:
+        raise CommandParserException("Input Invalid. Usage: (a|t|g|c) ...")
 
     if command == "g":
         if rest is not None:
@@ -59,8 +62,6 @@ def parse(line):
             "street_name": street_name,
             "coordinates": coordinates,
         }
-
-    raise CommandParserException("Input Invalid. Usage: (a|t|g|c) ...")
 
 
 def get_street_name(line):
