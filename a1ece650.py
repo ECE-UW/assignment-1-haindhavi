@@ -1,7 +1,10 @@
+#! /usr/bin/python2
+
 import sys
 
 from command_parser import parse
 from street_database import StreetDatabase
+from street_graph import StreetGraph
 
 
 def main():
@@ -28,8 +31,8 @@ def main():
                 db.print_db()
 
             if p["command"] == "GENERATE_GRAPH":
-                print ("GENERATE_GRAPH: TO BE IMPLEMENTED")
-                print ""
+                graph = StreetGraph(db)
+                graph.print_graph()
 
         except:
             sys.stderr.write("Error: Command parser doesn't work as expected\n")

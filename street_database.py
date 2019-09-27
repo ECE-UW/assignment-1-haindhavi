@@ -53,6 +53,9 @@ class StreetDatabase:
 
     def delete_street(self, name):
         del self.streets[name]
+        
+    def get_all_streets_except(self, except_street):
+        return (s for (_, s) in self.streets.items() if s != except_street)
 
     def print_db(self):
         print "---"
