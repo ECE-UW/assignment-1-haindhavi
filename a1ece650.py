@@ -2,9 +2,17 @@
 
 import sys
 
-from command_parser import parse
-from street_database import StreetDatabase
+from command_parser import parse, CommandParserException
+from street_database import (
+    StreetDatabase,
+    StreetLookupException,
+    InvalidStreetException,
+)
 from street_graph import StreetGraph
+
+
+def logerr(msg):
+    sys.stderr.write("Error: {}\n".format(msg))
 
 
 def main():
@@ -16,27 +24,29 @@ def main():
 
         try:
             p = parse(line)
-            print (p)
 
             if p["command"] == "ADD_STREET":
                 db.add_street(p["street_name"], p["coordinates"])
-                db.print_db()
+                # db.print_db()
 
             if p["command"] == "CHANGE_STREET":
                 db.change_street(p["street_name"], p["coordinates"])
-                db.print_db()
+                # db.print_db()
 
             if p["command"] == "REMOVE_STREET":
                 db.delete_street(p["street_name"])
-                db.print_db()
+                # db.print_db()
 
             if p["command"] == "GENERATE_GRAPH":
                 graph = StreetGraph(db)
                 graph.print_graph()
 
-        except:
-            sys.stderr.write("Error: Command parser doesn't work as expected\n")
-            raise
+        except (
+            CommandParserException,
+            StreetLookupException,
+            InvalidStreetException,
+        ) as e:
+            logerr(e.message)
 
     sys.exit(0)
 
