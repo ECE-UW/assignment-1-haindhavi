@@ -53,11 +53,11 @@ class StreetDatabase:
         if name.lower() not in self.streets:
             self.streets[name.lower()] = s
         else:
-            raise StreetLookupException("Street {} already exists".format(name))
+            raise StreetLookupException("Street '{}' already exists".format(name))
 
     def get_street(self, name):
         if name.lower() not in self.streets:
-            raise StreetLookupException("Street {} does not exist".format(name))
+            raise StreetLookupException("Street '{}' does not exist".format(name))
         return self.streets.get(name.lower())
 
     def change_street(self, name, points):

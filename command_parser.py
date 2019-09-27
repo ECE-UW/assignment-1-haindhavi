@@ -7,6 +7,7 @@ class CommandParserException(Exception):
 
 def parse(line):
     line = line.strip()
+
     m = re.match("^([acrg])([ ]+.*)?", line)
     command, rest = m.groups()
 
@@ -50,7 +51,7 @@ def parse(line):
                 raise
         except:
             raise CommandParserException(
-                'Invalid Input. Usage: a "street_name" (x1,y1) (x2,y2) ... '
+                'Invalid Input. Usage: c "street_name" (x1,y1) (x2,y2) ... '
             )
 
         return {

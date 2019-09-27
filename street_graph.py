@@ -28,10 +28,13 @@ class StreetGraph:
         print "}"
 
         print "E = {"
+        lines = []
         for (u, v) in self.edges:
-            print "  <{},{}>,".format(
-                self.vertices[u]["name"], self.vertices[v]["name"]
+            lines.append(
+                "  <{},{}>".format(self.vertices[u]["name"], self.vertices[v]["name"])
             )
+        if lines:
+            print ",\n".join(lines)
         print "}"
 
 

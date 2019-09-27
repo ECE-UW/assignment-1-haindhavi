@@ -21,6 +21,8 @@ def main():
         line = sys.stdin.readline()
         if line == "" or line == None:
             break
+        if line.strip() == "":
+            continue
 
         try:
             p = parse(line)
