@@ -26,6 +26,9 @@ class Vec:
     def cross(u, v):
         return 1.0 * (u.x * v.y - u.y * v.x)
 
+    def dot(u, v):
+        return 1.0 * (u.x * v.x + u.y * v.y)
+
     def __hash__(u):
         return hash("{:.2f} {:.2f}".format(u.x, u.y))
 
@@ -68,18 +71,16 @@ def findIntersection(a, b, c, d):
     if isclose(r.cross(s), 0.0):
         # lines are collinear
         if isclose(q.minus(p).cross(r), 0.0):
-            # check if they intersect at one point only
-            if a == c and b != d:
-                return a
+            AB = Segment(a, b)
 
-            if a == d and b != c:
-                return a
+            c_in_AB = AB.contains(c)
+            d_in_AB = AB.contains(d)
 
-            if b == c and a != d:
-                return b
+            if c_in_AB and not d_in_AB:
+                return c
 
-            if b == d and a != c:
-                return b
+            if d_in_AB and not c_in_AB:
+                return d
 
             return None
 
@@ -109,3 +110,12 @@ class Segment:
 
     def intersect(self, other):
         return findIntersection(self.u, self.v, other.u, other.v)
+
+    def contains(self, w):
+        u, v = self.u, self.v
+        vu = v.minus(u)
+        wu = w.minus(u)
+
+        return isclose(vu.cross(wu), 0) and (
+            -TOL <= vu.dot(wu) <= ((u.x - v.x) ** 2 + (u.y - v.y) ** 2)
+        )

@@ -18,7 +18,9 @@ class StreetGraph:
                         self.VERTEX_ID += 1
 
                 for i in range(len(curr_vertices) - 1):
-                    self.edges.add((curr_vertices[i], curr_vertices[i + 1]))
+                    u, v = curr_vertices[i], curr_vertices[i + 1]
+                    if (v, u) not in self.edges:
+                        self.edges.add((u, v))
 
     def print_graph(self):
         print "V = {"

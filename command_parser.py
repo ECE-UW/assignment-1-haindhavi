@@ -73,10 +73,10 @@ def get_street_name(line):
 
 def get_coordinates(line):
     line += " "
-    m = re.match("^\s*(\([ ]*([-\d]+)[ ]*,[ ]*([-\d]+)[ ]*\)[ ]+)+$", line)
+    m = re.match("^\s*(\([ ]*([-\d]+)[ ]*,[ ]*([-\d]+)[ ]*\)[ ]*)+$", line)
     if m is None:
         raise
-    coordinates = re.findall("\([ ]*([-\d]+)[ ]*,[ ]*([-\d]+)[ ]*\)[ ]+", line)
+    coordinates = re.findall("\([ ]*([-\d]+)[ ]*,[ ]*([-\d]+)[ ]*\)[ ]*", line)
     coordinates = [(int(a), int(b)) for (a, b) in coordinates]
     return coordinates, None
 
